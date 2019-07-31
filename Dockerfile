@@ -62,7 +62,7 @@ RUN curl -LO https://github.com/n-otter/PH-roadmap/raw/master/data_sets/roadmap_
 
 RUN (echo "OFF\n2000 0 0" && cat dragon_vrip.ply.txt_2000_.txt) >dragon_vrip.ply.txt_2000_.off \
 && (echo "OFF\n50 0 0" && cat random_point_cloud_50_16_.txt) >random_point_cloud_50_16_.off \
-&& (echo "OFF\n1024 0 0" && cat sphere_3_192_points.dat) > sphere_3_192.off \
+&& (echo "OFF\n192 0 0" && cat sphere_3_192_points.dat) > sphere_3_192.off \
 && (echo "OFF\n1024 0 0" && cat o3_1024.txt) >o3_1024.off \
 && (echo "OFF\n4096 0 0" && cat o3_4096.txt) >o3_4096.off \
 && (echo "nOFF\n4 50000 0 0" && cat clifford_torus_50000.points.txt) >clifford_torus_50000.points.off
