@@ -1,12 +1,24 @@
 # FROM ubuntu:latest
 
-#FROM ubuntu:18.10 as benchmark-setup
+# FROM ubuntu:18.10 as benchmark-setup
 # RUN echo "deb http://archive.ubuntu.com/ubuntu/ cosmic main restricted universe" > /etc/apt/sources.list
 
-FROM ubuntu:19.04 as benchmark-setup
+# FROM ubuntu:19.04 as benchmark-setup
+# FROM ubuntu:latest as benchmark-setup
 
-RUN apt-get update && \
-    apt-get install -y \
+FROM ubuntu:20.10 as benchmark-setup
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ groovy main restricted universe" > /etc/apt/sources.list
+
+# RUN apt-get update     
+
+#ENV TZ="Europe/Munich"
+#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
+
+RUN DEBIAN_FRONTEND="noninteractive" \
+apt-get update \
+&& apt-get install -y \
     apt-utils \
     cmake \
     curl \
@@ -14,6 +26,7 @@ RUN apt-get update && \
     git \
     gudhi-utils \
     hdf5-tools \
+    julia \
     libcgal-dev \
     libboost-dev \
     libboost-filesystem-dev \
@@ -23,17 +36,18 @@ RUN apt-get update && \
     libtbb-dev \
     libopenmpi-dev \
     make \
-    python-minimal \
-    python-pip \
+    python3-minimal \
+    python3-pip \
     time \
     unzip \
+    --no-install-recommends \
  && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /external
-
-RUN curl -LO https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz \
-	&& tar xf julia-1.1.0-linux-x86_64.tar.gz
-ENV PATH="${PATH}:/external/julia-1.1.0/bin"
+# WORKDIR /external
+# 
+# RUN curl -LO https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz \
+# 	&& tar xf julia-1.1.0-linux-x86_64.tar.gz
+# ENV PATH="${PATH}:/external/julia-1.1.0/bin"
 
 RUN julia --eval 'using Pkg; Pkg.add("Plotly"); Pkg.add("Eirene");  using Eirene;'
 
@@ -70,10 +84,12 @@ RUN (echo "OFF\n2000 0 0" && cat dragon_vrip.ply.txt_2000_.txt) >dragon_vrip.ply
 
 FROM benchmark-setup as benchmark-ripser
 
+ARG REBUILD=5.1.2021
+
 WORKDIR /ripser
 RUN git clone https://github.com/Ripser/ripser.git \
 && cd ripser \
-&& git checkout dev \
+&& git checkout apparent-pairs-new \
 && make
 
 ENV PATH="${PATH}:/ripser/ripser"
@@ -88,6 +104,23 @@ RUN time -v -o random.ripser.txt    ripser random_point_cloud_50_16_.txt --forma
 RUN time -v -o fractal-r.ripser.txt    ripser fractal_9_5_2_random_edge_list.txt_0.19795_distmat.txt --dim 2
 RUN time -v -o dragon-2.ripser.txt    ripser dragon_vrip.ply.txt_2000_.txt --format point-cloud --dim 1
 # RUN time -v -o genome.ripser.txt    ripser human_gene_distmat.txt --dim 1
+
+
+FROM benchmark-ripser as benchmark-ripser-no-apparent
+
+WORKDIR /ripser/ripser
+RUN git pull && git checkout master \
+&& make
+
+WORKDIR /benchmark
+RUN time -v -o sphere_3_192.ripser-no-apparent.txt    ripser sphere_3_192_points.dat --format point-cloud --dim 2
+RUN time -v -o random.ripser-no-apparent.txt    ripser random_point_cloud_50_16_.txt --format point-cloud --dim 7
+RUN time -v -o fractal-r.ripser-no-apparent.txt    ripser fractal_9_5_2_random_edge_list.txt_0.19795_distmat.txt --dim 2
+RUN time -v -o dragon-2.ripser-no-apparent.txt    ripser dragon_vrip.ply.txt_2000_.txt --format point-cloud --dim 1
+# RUN time -v -o genome.ripser-no-apparent.txt    ripser human_gene_distmat.txt --dim 1
+RUN time -v -o o3_1024.ripser-no-apparent.txt    ripser o3_1024.txt --format point-cloud --dim 3 --threshold 1.8 --ratio 2
+RUN time -v -o o3_4096.ripser-no-apparent.txt    ripser o3_4096.txt --format point-cloud --dim 3 --threshold 1.4 --ratio 2
+RUN time -v -o clifford_torus_50000.ripser-no-apparent.txt    ripser clifford_torus_50000.points.txt --format point-cloud --dim 2 --threshold .15 --ratio 2
 
 
 FROM benchmark-ripser as benchmark-ripser-no-emergent
@@ -189,10 +222,10 @@ RUN time -v -o o3_1024.dipha.txt     dipha --dual --benchmark --upper_dim 4 o3_1
 
 # FROM benchmark-dipha as benchmark-dipha-multicore
 
-RUN time -v -o sphere_3_192.dipha-multicore.txt     mpiexec --allow-run-as-root --mca btl_vader_single_copy_mechanism none \
+RUN time -v -o sphere_3_192.dipha-multicore.txt     mpiexec --use-hwthread-cpus --allow-run-as-root --mca btl_vader_single_copy_mechanism none \
 dipha --dual --benchmark --upper_dim 3 sphere_3_192.complex sphere_3_192.dipha-multicore.diagram
 
-RUN time -v -o o3_1024.dipha-multicore.txt     mpiexec --allow-run-as-root --mca btl_vader_single_copy_mechanism none \
+RUN time -v -o o3_1024.dipha-multicore.txt     mpiexec --use-hwthread-cpus --allow-run-as-root --mca btl_vader_single_copy_mechanism none \
 dipha --dual --benchmark --upper_dim 4 o3_1024_1.8.dipha o3_1024_1.8.dipha-multicore.diagram
 
 
@@ -280,7 +313,11 @@ FROM benchmark-setup as benchmark-dionysus2
 
 WORKDIR /dionysus2
 
-RUN pip install numpy scipy dionysus
+RUN DEBIAN_FRONTEND="noninteractive" \
+apt-get update \
+&& apt-get install -y \
+libpython3-dev
+RUN pip3 install numpy scipy dionysus
 
 # RUN git clone https://github.com/mrzv/dionysus.git \
 # && cd dionysus \
