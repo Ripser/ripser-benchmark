@@ -1,18 +1,18 @@
 	Command being timed: "ripser o3_4096.txt --format point-cloud --dim 3 --threshold 1.4 --ratio 2"
-	User time (seconds): 44.71
-	System time (seconds): 0.76
+	User time (seconds): 43.26
+	System time (seconds): 0.63
 	Percent of CPU this job got: 100%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:45.45
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:43.89
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1198984
+	Maximum resident set size (kbytes): 1198948
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 508842
-	Voluntary context switches: 2
-	Involuntary context switches: 992
+	Minor (reclaiming a frame) page faults: 508844
+	Voluntary context switches: 6
+	Involuntary context switches: 1018
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 0

@@ -33,6 +33,7 @@ apt-get update \
     libboost-test-dev \
     libgmp3-dev \
     libmpfr-dev \
+    libpython3-dev \
     libtbb-dev \
     libopenmpi-dev \
     make \
@@ -84,7 +85,7 @@ RUN (echo "OFF\n2000 0 0" && cat dragon_vrip.ply.txt_2000_.txt) >dragon_vrip.ply
 
 FROM benchmark-setup as benchmark-ripser
 
-ARG REBUILD=5.1.2021
+ARG REBUILD=7.1.2021
 
 WORKDIR /ripser
 RUN git clone https://github.com/Ripser/ripser.git \
@@ -313,10 +314,6 @@ FROM benchmark-setup as benchmark-dionysus2
 
 WORKDIR /dionysus2
 
-RUN DEBIAN_FRONTEND="noninteractive" \
-apt-get update \
-&& apt-get install -y \
-libpython3-dev
 RUN pip3 install numpy scipy dionysus
 
 # RUN git clone https://github.com/mrzv/dionysus.git \

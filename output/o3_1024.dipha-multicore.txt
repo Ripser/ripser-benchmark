@@ -1,18 +1,18 @@
-	Command being timed: "mpiexec --allow-run-as-root --mca btl_vader_single_copy_mechanism none dipha --dual --benchmark --upper_dim 4 o3_1024_1.8.dipha o3_1024_1.8.dipha-multicore.diagram"
-	User time (seconds): 312.91
-	System time (seconds): 2.97
+	Command being timed: "mpiexec --use-hwthread-cpus --allow-run-as-root --mca btl_vader_single_copy_mechanism none dipha --dual --benchmark --upper_dim 4 o3_1024_1.8.dipha o3_1024_1.8.dipha-multicore.diagram"
+	User time (seconds): 307.48
+	System time (seconds): 2.80
 	Percent of CPU this job got: 792%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:39.88
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:39.13
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 307804
+	Maximum resident set size (kbytes): 288820
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 7
-	Minor (reclaiming a frame) page faults: 931248
-	Voluntary context switches: 6581
-	Involuntary context switches: 9370
+	Minor (reclaiming a frame) page faults: 945326
+	Voluntary context switches: 6429
+	Involuntary context switches: 8407
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 16640
