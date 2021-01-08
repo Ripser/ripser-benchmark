@@ -347,6 +347,7 @@ COPY --from=benchmark-eirene /benchmark /benchmark
 # COPY --from=benchmark-eirene037 /benchmark /benchmark
 COPY --from=benchmark-dionysus2 /benchmark /benchmark
 
+COPY --from=benchmark-ripser-no-apparent /benchmark /benchmark
 COPY --from=benchmark-ripser-no-emergent /benchmark /benchmark
 COPY --from=benchmark-ripser-store-reduced /benchmark /benchmark
 COPY --from=benchmark-ripser-use-reduced /benchmark /benchmark
