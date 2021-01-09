@@ -1,0 +1,23 @@
+	Command being timed: "python3 -c import dionysus as d; from numpy import loadtxt, inf; import math; from scipy.spatial.distance import squareform; 	d.cohomology_persistence(d.fill_rips(loadtxt("sphere_3_192_points.dat"), 3, inf));"
+	User time (seconds): 840.88
+	System time (seconds): 13.38
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 14:13.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 14806512
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5457260
+	Voluntary context switches: 14
+	Involuntary context switches: 14378
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

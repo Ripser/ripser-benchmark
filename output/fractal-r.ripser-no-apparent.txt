@@ -1,18 +1,18 @@
 	Command being timed: "ripser fractal_9_5_2_random_edge_list.txt_0.19795_distmat.txt --dim 2"
-	User time (seconds): 12.63
-	System time (seconds): 0.92
-	Percent of CPU this job got: 99%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:13.57
+	User time (seconds): 12.25
+	System time (seconds): 0.78
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:13.03
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1799416
+	Maximum resident set size (kbytes): 1799324
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 767030
+	Minor (reclaiming a frame) page faults: 767026
 	Voluntary context switches: 1
-	Involuntary context switches: 278
+	Involuntary context switches: 276
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 0

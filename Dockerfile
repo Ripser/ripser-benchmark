@@ -85,7 +85,7 @@ RUN (echo "OFF\n2000 0 0" && cat dragon_vrip.ply.txt_2000_.txt) >dragon_vrip.ply
 
 FROM benchmark-setup as benchmark-ripser
 
-ARG REBUILD=7.1.2021
+ARG REBUILD=9.1.2021
 
 WORKDIR /ripser
 RUN git clone https://github.com/Ripser/ripser.git \
@@ -223,10 +223,10 @@ RUN time -v -o o3_1024.dipha.txt     dipha --dual --benchmark --upper_dim 4 o3_1
 
 # FROM benchmark-dipha as benchmark-dipha-multicore
 
-RUN time -v -o sphere_3_192.dipha-multicore.txt     mpiexec --use-hwthread-cpus --allow-run-as-root --mca btl_vader_single_copy_mechanism none \
+RUN time -v -o sphere_3_192.dipha-multicore.txt     mpiexec --allow-run-as-root --mca btl_vader_single_copy_mechanism none \
 dipha --dual --benchmark --upper_dim 3 sphere_3_192.complex sphere_3_192.dipha-multicore.diagram
 
-RUN time -v -o o3_1024.dipha-multicore.txt     mpiexec --use-hwthread-cpus --allow-run-as-root --mca btl_vader_single_copy_mechanism none \
+RUN time -v -o o3_1024.dipha-multicore.txt     mpiexec --allow-run-as-root --mca btl_vader_single_copy_mechanism none \
 dipha --dual --benchmark --upper_dim 4 o3_1024_1.8.dipha o3_1024_1.8.dipha-multicore.diagram
 
 
@@ -328,8 +328,8 @@ RUN pip3 install numpy scipy dionysus
 WORKDIR /benchmark
 # RUN time -v -o sphere_3_192.dionysus-cpp.txt  rips-pairwise sphere_3_192_points.dat -s3
 
-#RUN time -v -o sphere.dionysus-py.txt python -c 'import dionysus as d; from numpy import loadtxt, inf; import math; from scipy.spatial.distance import squareform; \
-#	d.cohomology_persistence(d.fill_rips(squareform(loadtxt("sphere_3_192.distance_matrix")), 3, inf));'
+RUN time -v -o sphere.dionysus-py.txt python3 -c 'import dionysus as d; from numpy import loadtxt, inf; import math; from scipy.spatial.distance import squareform; \
+	d.cohomology_persistence(d.fill_rips(loadtxt("sphere_3_192_points.dat"), 3, inf));'
 
 #RUN time -v -o dragon-2.dionysus-py.txt python -c 'import dionysus as d; from numpy import loadtxt, inf; import math; from scipy.spatial.distance import squareform; \
 #	d.cohomology_persistence(d.fill_rips(loadtxt("dragon_vrip.ply.txt_2000_.txt"), 2, inf));'
