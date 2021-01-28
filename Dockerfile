@@ -50,7 +50,6 @@ apt-get update \
 # 	&& tar xf julia-1.1.0-linux-x86_64.tar.gz
 # ENV PATH="${PATH}:/external/julia-1.1.0/bin"
 
-RUN julia --eval 'using Pkg; Pkg.add("Plotly"); Pkg.add("Eirene");  using Eirene;'
 
 
 WORKDIR /benchmark
@@ -83,9 +82,10 @@ RUN (echo "OFF\n2000 0 0" && cat dragon_vrip.ply.txt_2000_.txt) >dragon_vrip.ply
 && (echo "nOFF\n4 50000 0 0" && cat clifford_torus_50000.points.txt) >clifford_torus_50000.points.off
 
 
-FROM benchmark-setup as benchmark-ripser
+ARG REBUILD=28.1.2021
 
-ARG REBUILD=9.1.2021
+
+FROM benchmark-setup as benchmark-ripser
 
 WORKDIR /ripser
 RUN git clone https://github.com/Ripser/ripser.git \
@@ -279,7 +279,7 @@ WORKDIR /eirene
 #&& tar xf julia-1.1.0-linux-x86_64.tar.gz
 #ENV PATH="${PATH}:/eirene/julia-1.1.0/bin"
 
-#RUN julia --eval 'using Pkg; Pkg.add("Plotly"); Pkg.add("Eirene"); using Eirene'
+RUN julia --eval 'using Pkg; Pkg.add("Plotly"); Pkg.add("Eirene"); using Eirene'
 
 WORKDIR /benchmark
 
