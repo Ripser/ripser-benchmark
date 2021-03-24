@@ -82,7 +82,7 @@ RUN (echo "OFF\n2000 0 0" && cat dragon_vrip.ply.txt_2000_.txt) >dragon_vrip.ply
 && (echo "nOFF\n4 50000 0 0" && cat clifford_torus_50000.points.txt) >clifford_torus_50000.points.off
 
 
-ARG REBUILD=28.1.2021
+ARG REBUILD=23.3.2021
 
 
 FROM benchmark-setup as benchmark-ripser
@@ -90,7 +90,6 @@ FROM benchmark-setup as benchmark-ripser
 WORKDIR /ripser
 RUN git clone https://github.com/Ripser/ripser.git \
 && cd ripser \
-&& git checkout apparent-pairs-new \
 && make
 
 ENV PATH="${PATH}:/ripser/ripser"
