@@ -82,7 +82,7 @@ RUN (echo "OFF\n2000 0 0" && cat dragon_vrip.ply.txt_2000_.txt) >dragon_vrip.ply
 && (echo "nOFF\n4 50000 0 0" && cat clifford_torus_50000.points.txt) >clifford_torus_50000.points.off
 
 
-ARG REBUILD=23.3.2021
+ARG REBUILD=25.3.2021
 
 
 FROM benchmark-setup as benchmark-ripser
@@ -109,7 +109,7 @@ RUN time -v -o dragon-2.ripser.txt    ripser dragon_vrip.ply.txt_2000_.txt --for
 FROM benchmark-ripser as benchmark-ripser-no-apparent
 
 WORKDIR /ripser/ripser
-RUN git pull && git checkout master \
+RUN git pull && git checkout benchmarks/disable-apparent-pairs \
 && make
 
 WORKDIR /benchmark

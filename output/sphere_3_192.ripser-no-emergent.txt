@@ -1,18 +1,18 @@
 	Command being timed: "ripser sphere_3_192_points.dat --format point-cloud --dim 2"
-	User time (seconds): 5.49
-	System time (seconds): 0.06
+	User time (seconds): 4.83
+	System time (seconds): 0.08
 	Percent of CPU this job got: 99%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.56
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.94
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 201136
+	Maximum resident set size (kbytes): 200344
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 66913
+	Minor (reclaiming a frame) page faults: 66708
 	Voluntary context switches: 1
-	Involuntary context switches: 62
+	Involuntary context switches: 545
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 0
